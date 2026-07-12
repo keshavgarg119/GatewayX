@@ -4,8 +4,9 @@ const healthCheck = (req, res) => {
         status: "UP",
         service: "GatewayX",
         version: "1.0.0",
+        requestId: req.requestId,
         timestamp: new Date().toISOString()
     });
 };
 
-module.exports = { healthCheck }; 
+module.exports = { healthCheck };
