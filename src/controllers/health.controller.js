@@ -12,7 +12,9 @@
 // module.exports = { healthCheck };
 
 const healthCheck = (req, res) => {
-    throw new Error("Health endpoint failed");
+    // throw new Error("Health endpoint failed");
+    const ApiError = require('../utils/ApiError');
+    throw new ApiError(503, "Service is not available");
 };
 
 module.exports = {
