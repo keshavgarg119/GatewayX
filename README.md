@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # 🚀 GatewayX
 
 GatewayX is a production-inspired API Gateway built from first principles using **Node.js** and **Express.js**.
@@ -9,4 +9,4 @@ Instead of being a simple CRUD application, GatewayX focuses on understanding **
 =======
 # GatewayX
 GatewayX is a modern API Gateway designed to demonstrate production-grade backend engineering concepts, including request routing, middleware, authentication, authorization, reverse proxying, rate limiting, logging, and service orchestration.
->>>>>>> 560ccee54fb69ee07a90b446ad1f5c2ddfb2ddfc
+
