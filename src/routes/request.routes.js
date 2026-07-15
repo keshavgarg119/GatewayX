@@ -41,9 +41,8 @@ router.get("/headers", getHeaders);
 
 router.all("/inspect", getRequestInfo);
 router.all("/inspect/:id", getRequestInfo);
-/* ==========================================================
-   Validation
-========================================================== */
+
+
 router.post("/validate", validateUser);
 
 module.exports = router;
