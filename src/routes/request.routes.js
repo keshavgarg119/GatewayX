@@ -8,8 +8,13 @@ const {
    getProducts,
    getHeaders,
    getRequestInfo,
-   validateUser
+   validateUser,
+   signUp
 } = require("../controllers/request.controller");
+
+const {
+   validateRequiredFields
+} = require("../middleware/validation.middleware");
 
 /* ==========================================================
    Body
@@ -43,6 +48,14 @@ router.all("/inspect", getRequestInfo);
 router.all("/inspect/:id", getRequestInfo);
 
 
-router.post("/validate", validateUser);
+// router.post("/validate", validateUser);
+
+router.post(
+   "/validate",
+   validateRequiredFields(["name", "email", "age"]),
+   validateUser
+)
+
+router.post("/signup", signUp);
 
 module.exports = router;
