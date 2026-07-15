@@ -1,4 +1,3 @@
-const { request, param } = require("../app");
 
 const echoData = (req, res) => {
     console.log(req.body)
@@ -48,9 +47,40 @@ const getRequestInfo = (req, res) => {
             httpVersion: req.httpVersion,
             query: req.query,
             body: req.body,
-            params: req.param
+            params: req.params
         }
     });
 };
 
-module.exports = { echoData, getUser, getProducts, getHeaders, getRequestInfo };
+const validateUser = (req, res) => {
+    const { name, email, age } = req.body;
+
+    if (!name) {
+        return res.status(400).json({
+            success: false,
+            message: "Name is required"
+        });
+    }
+
+    if (!email) {
+        return res.status(400).json({
+            success: false,
+            message: "Email is required"
+        });
+    }
+
+    if (!age) {
+        return res.status(400).json({
+            success: false,
+            message: "Age is required"
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        message: "Validation Passed",
+        data: req.body
+    });
+};
+
+module.exports = { echoData, getUser, getProducts, getHeaders, getRequestInfo, validateUser };

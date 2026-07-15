@@ -7,7 +7,8 @@ const {
    getUser,
    getProducts,
    getHeaders,
-   getRequestInfo
+   getRequestInfo,
+   validateUser
 } = require("../controllers/request.controller");
 
 /* ==========================================================
@@ -40,5 +41,9 @@ router.get("/headers", getHeaders);
 
 router.all("/inspect", getRequestInfo);
 router.all("/inspect/:id", getRequestInfo);
+/* ==========================================================
+   Validation
+========================================================== */
+router.post("/validate", validateUser);
 
 module.exports = router;
