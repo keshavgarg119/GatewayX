@@ -3,10 +3,17 @@ const validate = (schema) => {
         const result = schema.safeParse(req.body);
 
         if (!result.success) {
+            const formattedErrors = result.error.issues.map((issue) => {
+                return {
+                    field: issue.path.join("."),
+                    message: issue.message
+                };
+            });
+
             return res.status(400).json({
                 success: false,
                 message: "Validation Failed",
-                errors: result.error.issues
+                errors: formattedErrors
             });
         }
 
