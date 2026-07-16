@@ -16,6 +16,10 @@ const {
    validateRequiredFields
 } = require("../middleware/validation.middleware");
 
+const validate = require("../middleware/zodValidation.middleware");
+
+const { validateUserSchema } = require("../validators/user.validator");
+
 /* ==========================================================
    Body
 ========================================================== */
@@ -50,9 +54,14 @@ router.all("/inspect/:id", getRequestInfo);
 
 // router.post("/validate", validateUser);
 
+// router.post(
+//    "/validate",
+//    validateRequiredFields(["name", "email", "age"]),
+//    validateUser
+// )
 router.post(
    "/validate",
-   validateRequiredFields(["name", "email", "age"]),
+   validate(validateUserSchema),
    validateUser
 )
 
