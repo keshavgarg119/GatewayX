@@ -1,6 +1,14 @@
 const { z } = require("zod");
 
 const validateUserSchema = z.object({
+    // use refine to create your own imlementation........................................................................
+    username: z.string().min(3).max(20).refine(
+        (value) => /^[a-zA-Z][a-zA-Z0-9_]*$/.test(value),
+        {
+            message: "Username must start with a letter and can contain only letters, numbers and underscores"
+        }
+    ),
+    //.................................................................................................................
     name: z.string("Name must be a string").trim().min(2, "Name must be at least 2 characters long").max(50, "Name must be less than 50 characters"),
 
     email: z.string("Email must be a string").trim().email("Invalid email address"),
@@ -28,8 +36,38 @@ const validateUserSchema = z.object({
             name: z.string(),
             tech: z.string()
         })
-    )
+    ),
 
+    phone: z.string().refine(
+        (phone) => /^[6-9]\d{9}$/.test(phone),
+        {
+            message: "Invalid Indian mobile number"
+        }
+    ),
+
+    //same use refine for password..................................................................................................
+    password: z.string().min(8).refine(
+        (password) =>
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/.test(password),
+        {
+            message:
+                "Password must contain uppercase, lowercase, number and special character"
+        }
+    ),
+
+    //.............................................................................................................................
+
+    confirmPassword: z.string()
+
+
+}).superRefine((data, ctx) => {
+    if (data.password !== data.confirmPassword) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["confirmPassword"],
+            message: "Passwords do not match"
+        });
+    }
 });
 
 module.exports = {
